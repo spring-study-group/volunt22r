@@ -5,10 +5,16 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	bbb
-</h1>
+	<form action="login">
+		<div>
+			<label>ID</label>
+			<input type="text" name="id">
+		</div>
+		<div>
+			<label>Password</label>
+			<input type="password" name="password">
+		</div>
+	</form>
 
-<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
