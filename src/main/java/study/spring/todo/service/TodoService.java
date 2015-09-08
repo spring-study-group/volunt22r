@@ -3,9 +3,12 @@ package study.spring.todo.service;
 import java.util.Collection;
 import java.util.Date;
 
+import study.spring.todo.dao.TodoDao;
 import study.spring.todo.model.Todo;
 
 public class TodoService {
+	private TodoDao todoDao;
+	
 	public Collection<Todo> getTodoAfterDate(Date date){
 		return null;
 	}

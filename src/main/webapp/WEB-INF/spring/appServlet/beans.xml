@@ -3,5 +3,30 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<!-- DAO -->
+	<bean id="userDao" class="study.spring.todo.dao.UserDao"></bean>
+	<bean id="todoDao" class="study.spring.todo.dao.TodoDao"></bean>
 	
+	<!-- Service -->
+	<bean id="userService" class="study.spring.todo.service.UserService">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	
+	<bean id="todoService" class="study.spring.todo.service.TodoService">
+		<property name="todoDao" ref="todoDao"></property>
+	</bean>
+	
+	<bean id="scheduleService" class="study.spring.todo.service.ScheduleService">
+		<property name="todoService" ref="todoService"></property>
+	</bean>
+	
+	<!-- Repeat Strategy Implementation -->
+	<bean id="everyday" class="study.spring.todo.repeat.impl.Everyday"></bean>
+	<bean id="every2Days" class="study.spring.todo.repeat.impl.Every2Days"></bean>
+	<bean id="everyMonth" class="study.spring.todo.repeat.impl.EveryMonth"></bean>
+	<bean id="every2Months" class="study.spring.todo.repeat.impl.Every2Months"></bean>
+	<bean id="everyWeek" class="study.spring.todo.repeat.impl.EveryWeek"></bean>
+	<bean id="every2Weeks" class="study.spring.todo.repeat.impl.Every2Weeks"></bean>
+	<bean id="everyYear" class="study.spring.todo.repeat.impl.EveryYear"></bean>
+	<bean id="every2Years" class="study.spring.todo.repeat.impl.Every2Years"></bean>
 </beans>
