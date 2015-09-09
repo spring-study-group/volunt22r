@@ -1,0 +1,90 @@
+2. 빈 와이어링 - xml 설정
+2.1 
+
+빈 선언 : 아래가 기본 템플릿, <beans ~~> 와 </beans>사이에 bean을 선언한다.
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="itbean" class="study.spring.todo.Todo">
+</beans>
+
+-attribute
+> id : 스프링 컨테이너에서 참조할 때 사용하는 이름
+> class : bean의 클래스 명으로, 빈 생성시 해당 클래스를 객체화한다.
+> scope : 기본적으로는 singleton이다(컨테이너 내에서 1개 보장), prototype일 경우 getBean시마다 생성한다.
+ *bean scope : default=singleton, prototype(getBean마다 계속 생성), request(mvc에서 http request당 1개), session(mvc에서 session당 1개), global-session(포틀릿에서 전역 http session당 1개)
+> init-method : 빈이 생성 된 후 callback(정확한 시점은 스프링 라이프 사이클 참고)
+> destroy-method : 빈이 소멸 전 callback(특정 scope에서는 호출 보장 안 됨)
+> factory-bean : 생성자 대신 빈을 생성하는 메소드 지정
+> factory-bean : 해당 빈을 생성해줄 클래스 지정
+> name : 빈 이름, 원래 AppicationContext는 id로 찾으나 id 없을 경우 name을 통해 빈에 접근 가능
+> parent : 
+> autowire : 
+> autowire-candidate : 
+> primary : 
+> depend-on : 
+
+-빈 사용법
+> AppicationContext를 생성한다(혹은 가져온다)
+AppicationContext ctx = new ClassPathXmlApplicationontext("path/file.xml");
+> 빈을 가져온다.
+Todo todo = (Todo) ctx.getBean("itbean");
+
+-빈 DI
+>생성자를 이용한 DI
+	<bean id="itbean" class="study.spring.todo.Todo">
+		<constructor-arg value="100"/>
+	</bean>
+ * constructor-arg는 실제 클래스에서 변수 선언 타입에 따라 변환 가능한 타입이면 해당 타입으로 자동 변환된다.(그렇지 않을 경우 ClassCastException)
+ * primitive Type이 아닌 Object Type의 경우 DI
+	<bean id="objBean" class="study.spring.todo.obj"></bean>
+	<bean id="itbean" class="study.spring.todo.Todo">
+		<constructor-arg ref="objBean"/>
+	</bean>
+	
+>property DI : 세터를 이용해 인스턴스의 필드에 값을 주입한다.
+	<bean id="itbean" class="study.spring.todo.Todo">
+		<property name="fieldname" value="100"/>
+	</bean>
+	
+ * Object Type DI의 경우 마찬가지로 ref를 이용한다.
+ 	<bean id="objBean" class="study.spring.todo.obj"></bean>
+	<bean id="itbean" class="study.spring.todo.Todo">
+		<property name="fieldname" ref="objBean"/>
+	</bean>
+
+ * DI되는 bean의 scope(빈의 스코프가 아님)를 내부로 제한하고 싶다면 아래와 같이 bean 내부에서 내부 빈을 선언한다
+ 	<bean id="itbean" class="study.spring.todo.Todo">
+		<property name="fieldname">
+			<bean class="org.springframework.blah.Blah"/>
+		</property>
+	</bean>
+ * property 태그 쓰기가 귀찮다면 p 태그 활용법도 있다.
+  +p태그 내임 스페이스르 생성한다.
+  	<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	...>
+  +위 property 주입을 더 간편하게 할 수 있다.
+  	<bean id="objBean" class="study.spring.todo.obj"></bean>
+	<bean id="itbean" class="study.spring.todo.Todo" p:fieldname-ref="objBean"/>
+  
+-Collection DI
+ *아래와 같이 다양한 컬렉션을 지원한다. list/set은 중복 허용/불허의 차이다. map/props는 key-value가 다양/string만 의 차이다
+  +<list>
+  +<set>
+  +<map>
+  +<props>
+  
+-null 와이어링
+ <property name="fieldname"><null/></property>
+ 
+-SpEL(Spring Expression Language)
+ *런타임 이후 결정되는 값들의 와이어링을 보다 간편하게 할 수 있도록 지원
+ *SpEL 예(아래는 hard coding된 값을 넣기 때문에 SpEL이 사실상 의미없는 구문이지만)
+ 	<property name="test" value="#{'testString'}"/>
+ *SpEL은 객체의 id를 value로 할 경우 ref와 사실상 같은 기능을 한다.
+ *하지만 method의 리턴값이라던가, 객체의 속성 값 등 기존 setter 주입으로 힘들었던 것을 SpEL을 통해 할 수 있다.
+ 	<property name="test" value="#{instance.getValue()}"/>
