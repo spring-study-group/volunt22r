@@ -2,15 +2,24 @@ package study.spring.todo.service;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
+import study.spring.todo.constant.Repeat;
 import study.spring.todo.dao.TodoDao;
 import study.spring.todo.model.Todo;
+import study.spring.todo.parameter.RepeatParam;
+import study.spring.todo.repeat.RepeatStrategy;
 
 public class TodoService {
 	private TodoDao todoDao;
-
+	private Map<Repeat,RepeatStrategy<RepeatParam,Date>> repeatStrategy;
+	
 	public void setTodoDao(TodoDao todoDao){
 		this.todoDao = todoDao;
+	}
+	
+	public void setRepeatStrategy(Map<Repeat,RepeatStrategy<RepeatParam,Date>> strategy){
+		this.repeatStrategy = strategy;
 	}
 	
 	public Collection<Todo> getTodoAfterDate(Date date){
