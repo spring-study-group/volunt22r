@@ -8,6 +8,10 @@ import study.spring.todo.model.Todo;
 
 public class TodoService {
 	private TodoDao todoDao;
+
+	public void setTodoDao(TodoDao todoDao){
+		this.todoDao = todoDao;
+	}
 	
 	public Collection<Todo> getTodoAfterDate(Date date){
 		return null;

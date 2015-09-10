@@ -7,6 +7,10 @@ import study.spring.todo.result.AuthResult;
 public class UserService {
 	private UserDao userDao;
 	
+	public void setUserDao(UserDao userDao){
+		this.userDao = userDao;
+	}
+	
 	public AuthResult login(AuthParam param){
 		return null;
 	}
