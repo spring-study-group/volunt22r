@@ -18,6 +18,14 @@ public class TodoService {
 		this.todoDao = todoDao;
 	}
 	
+	public TodoDao getTodoDao() {
+		return todoDao;
+	}
+
+	public Map<Repeat, RepeatStrategy<RepeatParam, Date>> getRepeatStrategy() {
+		return repeatStrategy;
+	}
+
 	public void setRepeatStrategy(Map<Repeat,RepeatStrategy<RepeatParam,Date>> strategy){
 		this.repeatStrategy = strategy;
 	}

@@ -7,6 +7,10 @@ public class ScheduleService {
 		this.todoService = todoService;
 	}
 	
+	public TodoService getTodoService() {
+		return todoService;
+	}
+
 	public void changeStandardDay(){
 		
 	}

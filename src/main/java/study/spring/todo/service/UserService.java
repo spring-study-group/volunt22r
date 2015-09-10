@@ -11,6 +11,10 @@ public class UserService {
 		this.userDao = userDao;
 	}
 	
+	public UserDao getUserDao(){
+		return userDao;
+	}
+	
 	public AuthResult login(AuthParam param){
 		return null;
 	}
