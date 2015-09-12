@@ -23,6 +23,7 @@
 			<param-value>
 				/WEB-INF/spring/appServlet/servlet-context.xml
 				/WEB-INF/spring/appServlet/beans.xml
+				/WEB-INF/spring/appServlet/database.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
