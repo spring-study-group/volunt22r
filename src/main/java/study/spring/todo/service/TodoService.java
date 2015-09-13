@@ -1,5 +1,6 @@
 package study.spring.todo.service;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -46,8 +47,11 @@ public class TodoService {
 		return null;
 	}
 	
-	public void newTodo(Todo todo){
-		
+	public void newTodo(Todo todo) throws SQLException{
+		Integer uid = todoDao.insertNewTodo(todo);
+		if(uid == null){
+			throw new SQLException("insert todo fail, result uid is null");
+		}
 	}
 	
 	public void removeTodo(Todo todo){
