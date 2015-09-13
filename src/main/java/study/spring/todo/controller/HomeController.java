@@ -19,7 +19,6 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getVersion() {
-		return null;
+		return "home";
 	}
-	
 }

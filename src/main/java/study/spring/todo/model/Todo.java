@@ -4,12 +4,16 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import study.spring.todo.constant.Repeat;
 
+@Entity
+@Table(name="todo")
 public class Todo {
 	@Id
 	@GeneratedValue
