@@ -2,13 +2,19 @@ package study.spring.todo.model;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 import study.spring.todo.constant.Repeat;
 
@@ -26,14 +32,16 @@ public class Todo {
 	private String content;
 	
 	@Column(name="repeat_type", nullable=false)
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private Repeat repeatType;
 	
 	@Column(name="std_day", nullable=false, updatable=false)
-	private Date stdDay;
+	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+	private DateTime stdDay;
 	
 	@Column(name="variable_std_day", nullable=false)
-	private Date varDay;
+	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+	private DateTime varDay;
 
 	//insert default value, not updated
 	@Column(name="insert_timestamp", nullable=false, insertable=false, updatable=false)
@@ -75,19 +83,19 @@ public class Todo {
 		this.repeatType = repeatType;
 	}
 
-	public Date getStdDay() {
+	public DateTime getStdDay() {
 		return stdDay;
 	}
 
-	public void setStdDay(Date stdDay) {
+	public void setStdDay(DateTime stdDay) {
 		this.stdDay = stdDay;
 	}
 
-	public Date getVarDay() {
+	public DateTime getVarDay() {
 		return varDay;
 	}
 
-	public void setVarDay(Date varDay) {
+	public void setVarDay(DateTime varDay) {
 		this.varDay = varDay;
 	}
 
