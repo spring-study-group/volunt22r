@@ -31,4 +31,11 @@ public class TodoDao {
 		session.delete(session.load(Todo.class, uid));
 		tx.commit();
 	}
+	
+	public void updateTodo(Todo todo){
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		session.update(todo);
+		tx.commit();
+	}
 }

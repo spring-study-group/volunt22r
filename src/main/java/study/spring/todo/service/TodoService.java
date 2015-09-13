@@ -59,6 +59,6 @@ public class TodoService {
 	}
 	
 	public void updateTodo(Todo todo){
-		
+		todoDao.updateTodo(todo);
 	}
 }

@@ -55,6 +55,19 @@ public class TestTodo {
 	
 	@Test
 	public void testTodo지우기() throws Exception{
-		todoService.removeTodo(3);
+		todoService.removeTodo(4);
+	}
+	
+	@Test
+	public void testTodo변경하기() throws Exception{
+		Todo todo = new Todo();
+		todo.setTitle(title);
+		todo.setContent(content);
+		todo.setRepeatType(repeat);
+		todo.setStdDay(stdDay);
+		todo.setVarDay(varDay);
+		todo.setUid(1);
+		todoService.updateTodo(todo);
+		
 	}
 }
