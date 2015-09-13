@@ -2,7 +2,7 @@ create table todo(
 	uid integer auto_increment primary key,
 	title varchar(250),
 	content varchar(1000),
-	repeat_type tinyint not null,
+	repeat_type varchar(50) not null,
 	std_day date not null,
 	variable_std_day date not null,
 	insert_timestamp timestamp not null default CURRENT_TIMESTAMP,
