@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -24,6 +25,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import study.spring.todo.constant.Repeat;
 import study.spring.todo.constant.UserStatus;
 import study.spring.todo.model.Todo;
 import study.spring.todo.model.User;
@@ -40,7 +42,6 @@ public class TestDatabase {
 	private static String mail = "volunt22r@naver.com";
 	private static String password = "암호화없는비밀번호";
 
-	@Qualifier("testSessionFactory")
 	@Autowired
 	private UserService userService;
 	
@@ -109,5 +110,16 @@ public class TestDatabase {
 		session.beginTransaction();
 		session.save(user); //need mail
 		session.getTransaction().commit();
+	}
+	
+	@Test
+	public void test새Todo넣기() throws Exception{
+		Todo todo = new Todo();
+		todo.setTitle("제목");
+		todo.setContent("내용내용");
+		todo.setRepeatType(Repeat.NONE);
+		todo.setStdDay(new DateTime(2015,9,13,9,0,0));
+		todo.setVarDay(todo.getStdDay());
+		todoService.newTodo(todo);
 	}
 }
