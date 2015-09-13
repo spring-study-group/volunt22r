@@ -38,15 +38,13 @@ import study.spring.todo.service.UserService;
 	"file:src/main/webapp/WEB-INF/spring/appServlet/beans.xml",
 	"file:src/main/webapp/WEB-INF/spring/appServlet/database.xml"
 })
-public class TestDatabase {
+public class TestUser {
 	private static String mail = "volunt22r@naver.com";
 	private static String password = "암호화없는비밀번호";
-
-	@Autowired
-	private UserService userService;
+	private static String modifiedPassword = "바꾼비밀번호도암호화없이";
 	
 	@Autowired
-	private TodoService todoService;	
+	private UserService userService;
 	
 	private Session getSession(){
 		return userService.getUserDao().getSessionFactory().getCurrentSession();
@@ -64,7 +62,7 @@ public class TestDatabase {
 	public void testCRUDUser(){
 		User user = new User();
 		user.setMail(mail);
-		user.setPassword("테스트니깐암호화없이");
+		user.setPassword(password);
 		
 		//insert
 		Session session = getSession();
@@ -81,7 +79,7 @@ public class TestDatabase {
 		Assert.notNull(user,"select fail, "+mail+" is invalid user");
 		
 		//update
-		user.setPassword("바꾼비밀번호역시암호화없이");
+		user.setPassword(modifiedPassword);
 		session.update(user);
 		session.getTransaction().commit();
 		
@@ -95,7 +93,7 @@ public class TestDatabase {
 	@Test(expected=PropertyValueException.class)
 	public void test_User의_mail주소없이_입력테스트(){
 		User user = new User();
-		user.setPassword("테스트비밀번호");
+		user.setPassword(password);
 		Session session = getSession();
 		session.beginTransaction();
 		session.save(user); //need mail
@@ -105,21 +103,10 @@ public class TestDatabase {
 	@Test(expected=PropertyValueException.class)
 	public void test_User의_password없이_입력테스트(){
 		User user = new User();
-		user.setMail("test@spring.com");
+		user.setMail(mail);
 		Session session = getSession();
 		session.beginTransaction();
 		session.save(user); //need mail
 		session.getTransaction().commit();
-	}
-	
-	@Test
-	public void test새Todo넣기() throws Exception{
-		Todo todo = new Todo();
-		todo.setTitle("제목");
-		todo.setContent("내용내용");
-		todo.setRepeatType(Repeat.NONE);
-		todo.setStdDay(new DateTime(2015,9,13,9,0,0));
-		todo.setVarDay(todo.getStdDay());
-		todoService.newTodo(todo);
 	}
 }
