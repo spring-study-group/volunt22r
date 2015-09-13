@@ -54,8 +54,8 @@ public class TodoService {
 		}
 	}
 	
-	public void removeTodo(Todo todo){
-		
+	public void removeTodo(int uid){
+		todoDao.deleteTodo(uid);
 	}
 	
 	public void updateTodo(Todo todo){
