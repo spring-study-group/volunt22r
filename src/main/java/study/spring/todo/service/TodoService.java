@@ -5,10 +5,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
-import study.spring.todo.constant.Repeat;
 import study.spring.todo.dao.TodoDao;
 import study.spring.todo.model.Todo;
-import study.spring.todo.parameter.RepeatParam;
+import study.spring.todo.repeat.Repeat;
+import study.spring.todo.repeat.RepeatParam;
 import study.spring.todo.repeat.RepeatStrategy;
 
 public class TodoService {

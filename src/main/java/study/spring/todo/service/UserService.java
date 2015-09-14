@@ -1,8 +1,9 @@
 package study.spring.todo.service;
 
+import study.spring.todo.auth.AuthParam;
+import study.spring.todo.auth.AuthResult;
 import study.spring.todo.dao.UserDao;
-import study.spring.todo.parameter.AuthParam;
-import study.spring.todo.result.AuthResult;
+import study.spring.todo.model.User;
 
 public class UserService {
 	private UserDao userDao;
@@ -21,5 +22,9 @@ public class UserService {
 	
 	public AuthResult logout(AuthParam param){
 		return null;
+	}
+	
+	public User getUser(String mail){
+		return userDao.getUser(mail);
 	}
 }

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-import study.spring.todo.constant.Repeat;
+import study.spring.todo.repeat.Repeat;
 
 @Entity
 @Table(name="todo")

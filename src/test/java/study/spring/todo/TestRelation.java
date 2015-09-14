@@ -11,8 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import study.spring.todo.constant.Repeat;
 import study.spring.todo.model.Todo;
+import study.spring.todo.repeat.Repeat;
 import study.spring.todo.service.TodoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)

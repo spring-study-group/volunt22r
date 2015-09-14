@@ -19,7 +19,7 @@
 	<bean id="todoService" class="study.spring.todo.service.TodoService">
 		<property name="todoDao" ref="todoDao"></property>
 		<property name="repeatStrategy">
-			<map key-type="study.spring.todo.constant.Repeat">
+			<map key-type="study.spring.todo.repeat.Repeat">
 				<entry key="EVERYDAY">
 					<bean class="study.spring.todo.repeat.impl.Everyday"></bean>
 				</entry>
