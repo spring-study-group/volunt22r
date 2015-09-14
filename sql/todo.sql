@@ -6,7 +6,9 @@ create table todo(
 	std_day date not null,
 	variable_std_day date not null,
 	insert_timestamp timestamp not null default CURRENT_TIMESTAMP,
-	modified_timestamp timestamp not null default CURRENT_TIMESTAMP on update current_timestamp
+	modified_timestamp timestamp not null default CURRENT_TIMESTAMP on update current_timestamp,
+	mail varchar(100) not null,
+	constraint foreign key(mail) references todo_user(mail) on update cascade on delete cascade
 );
 
 create table todo_user(
