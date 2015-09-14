@@ -47,6 +47,10 @@ public class TodoService {
 		return null;
 	}
 	
+	public Collection<Todo> getTodoList(String userId){
+		return todoDao.getTodoList(userId);
+	}
+	
 	public void newTodo(Todo todo) throws SQLException{
 		Integer uid = todoDao.insertNewTodo(todo);
 		if(uid == null){
