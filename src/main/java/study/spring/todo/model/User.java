@@ -1,20 +1,28 @@
 package study.spring.todo.model;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import study.spring.todo.constant.UserStatus;
 
 @Entity
 @Table(name="todo_user")
-public class User {
+public class User implements Serializable{
+
+	private static final long serialVersionUID = -3103902478176675260L;
 
 	@Id
 	@GeneratedValue
@@ -35,6 +43,18 @@ public class User {
 	@Column(name="status", nullable=false, insertable=false)
 	@Enumerated(EnumType.STRING)
 	private UserStatus status;
+
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@JoinColumn(name="mail",referencedColumnName="mail")
+	private Set<Todo> todoList;
+	
+	public Set<Todo> getTodoList() {
+		return todoList;
+	}
+
+	public void setTodoList(Set<Todo> todoList) {
+		this.todoList = todoList;
+	}
 
 	public int getUid() {
 		return uid;

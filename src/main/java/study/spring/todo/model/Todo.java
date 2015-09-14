@@ -1,8 +1,6 @@
 package study.spring.todo.model;
 
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -50,6 +47,17 @@ public class Todo {
 	//insert default, update auto
 	@Column(name="modified_timestamp", nullable=false, insertable=false, updatable=false)
 	private Timestamp modified;
+
+	@Column(name="mail")
+	private String userMail;
+
+	public String getUserMail() {
+		return userMail;
+	}
+
+	public void setUserMail(String userMail) {
+		this.userMail = userMail;
+	}
 
 	public int getUid() {
 		return uid;
