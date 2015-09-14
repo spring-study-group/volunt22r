@@ -1,14 +1,15 @@
 package study.spring.todo;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import java.sql.SQLException;
+import java.util.Collection;
+
 import org.joda.time.DateTime;
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import study.spring.todo.constant.Repeat;
 import study.spring.todo.model.Todo;
@@ -19,30 +20,18 @@ import study.spring.todo.service.TodoService;
 	"file:src/main/webapp/WEB-INF/spring/appServlet/beans.xml",
 	"file:src/main/webapp/WEB-INF/spring/appServlet/database.xml"
 })
-public class TestTodo {
+public class TestRelation {
 	private static String title = "@테스트제목@";
 	private static String content = "@테스트내용@abcd##$$%%\\''";
 	private static Repeat repeat = Repeat.NONE;
 	private static DateTime stdDay = new DateTime(2014,10,1,7,21,37);
 	private static DateTime varDay = new DateTime(2014,10,1,7,21,37);
-		
+	
 	@Autowired
 	private TodoService todoService;	
 
-	private Session getSession(){
-		return todoService.getTodoDao().getSessionFactory().getCurrentSession();
-	}
-	
-	@After
-	public void closeTransactionWhenErrorOccured(){
-		Transaction tx = getSession().getTransaction();
-		if(tx.isActive()){
-			tx.rollback();
-		}
-	}
-	
 	@Test
-	public void test새Todo넣기() throws Exception{
+	public void test() throws SQLException {
 		Todo todo = new Todo();
 		todo.setTitle(title);
 		todo.setContent(content);
@@ -50,23 +39,19 @@ public class TestTodo {
 		todo.setStdDay(stdDay);
 		todo.setVarDay(varDay);
 		
+		todo.setUserMail("volunt22r@naver.com");
 		todoService.newTodo(todo);
-	}
-	
-	@Test
-	public void testTodo지우기() throws Exception{
-		todoService.removeTodo(4);
-	}
-	
-	@Test
-	public void testTodo변경하기() throws Exception{
-		Todo todo = new Todo();
-		todo.setTitle(title);
-		todo.setContent(content);
-		todo.setRepeatType(repeat);
-		todo.setStdDay(stdDay);
-		todo.setVarDay(varDay);
-		todo.setUid(1);
-		todoService.updateTodo(todo);
+		
+		todo.setTitle(title+"2");
+		todo.setContent(content+"2");
+		todoService.newTodo(todo);
+		
+		todo.setTitle(title+"3");
+		todo.setContent(content+"3");
+		todoService.newTodo(todo);
+		
+		Collection<Todo> todoList = todoService.getTodoList("volunt22r@naver.com");
+		
+		Assert.notEmpty(todoList);
 	}
 }
