@@ -1,35 +1,18 @@
 package study.spring.todo;
 
-import static org.junit.Assert.*;
-
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 import org.hibernate.PropertyValueException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.exception.ConstraintViolationException;
-import org.joda.time.DateTime;
 import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import study.spring.todo.constant.Repeat;
-import study.spring.todo.constant.UserStatus;
-import study.spring.todo.model.Todo;
 import study.spring.todo.model.User;
-import study.spring.todo.service.TodoService;
 import study.spring.todo.service.UserService;
 
 
