@@ -27,4 +27,15 @@ public class UserDao {
 		session.getTransaction().commit();
 		return user;
 	}
+	
+	public User getUser(String mail, String password){
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		Criteria criteria = session.createCriteria(User.class);
+		criteria.add(Restrictions.eq("mail", mail));
+		criteria.add(Restrictions.eq("password", password));
+		User user = (User)criteria.uniqueResult();
+		session.getTransaction().commit();
+		return user;
+	}
 }

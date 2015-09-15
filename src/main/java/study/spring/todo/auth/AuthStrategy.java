@@ -1,5 +1,5 @@
 package study.spring.todo.auth;
 
-public interface AuthStrategy<I,O> {
-	public O auth(I param);
+public interface AuthStrategy {
+	public AuthResult auth(AuthParam param);
 }
