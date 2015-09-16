@@ -5,15 +5,16 @@
 	<title>Home</title>
 </head>
 <body>
-	<form action="login">
+	<form action="login" method="post">
 		<div>
 			<label>ID</label>
-			<input type="text" name="id">
+			<input type="text" name="mail">
 		</div>
 		<div>
 			<label>Password</label>
 			<input type="password" name="password">
 		</div>
+		<input type="submit" value="submit">
 	</form>
 
 </body>

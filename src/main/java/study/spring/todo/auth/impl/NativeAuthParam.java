@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import study.spring.todo.auth.AuthParam;
+import study.spring.todo.auth.AuthType;
 import study.spring.todo.dao.UserDao;
 
 @Component
@@ -15,6 +16,10 @@ public class NativeAuthParam extends AuthParam{
 	
 	private String mail;
 	private String password;
+
+	public NativeAuthParam(){
+		type = AuthType.NATIVE;
+	}
 	
 	public String getPassword() {
 		return password;

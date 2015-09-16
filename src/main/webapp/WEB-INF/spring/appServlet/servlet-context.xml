@@ -22,4 +22,13 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="study.spring.todo" />
+	
+	<interceptors>
+	    <interceptor>
+	    	<mapping path="/**"/>
+	    	<exclude-mapping path="/login"/>
+	    	<exclude-mapping path="/"/>
+	        <beans:bean class="study.spring.todo.interceptor.SignInChecker"/> <!-- HandlerInterceptor 인터페이스를 구현한 클래스 -->
+	    </interceptor>
+	</interceptors>
 </beans:beans>
