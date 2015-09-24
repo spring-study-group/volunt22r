@@ -47,7 +47,43 @@ public class TestRepeat {
 		param.setStandardDay(date);
 		result = Repeat.NONE.getStrategy().getRepeat(param);
 		assertThat("result size must be 0",result.size(),is(0));
-		
 	}
 
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testEveryYear(){
+		DateTime date = makeDate("20150503 03:30");
+		DateTime stdDate = makeDate("20150512 10:10");
+		Todo todo = new Todo();
+		todo.setStdDay(stdDate);
+		RepeatParam param = new RepeatParam();
+		param.setStandardDay(date);
+		param.setTodo(todo);
+		
+		Collection<Long> result = Repeat.EVERY_YEAR.getStrategy().getRepeat(param);
+		assertThat("result size must be 1",result.size(),is(1));
+		assertThat("todo date must be "+stdDate.toString(),result,hasItem(stdDate.getMillis()));
+		
+		date = makeDate("20150601 02:20");
+		param.setStandardDay(date);
+		result = Repeat.EVERY_YEAR.getStrategy().getRepeat(param);
+		assertThat("result size must be 0",result.size(),is(0));
+
+		date = makeDate("20150401 02:20");
+		param.setStandardDay(date);
+		result = Repeat.EVERY_YEAR.getStrategy().getRepeat(param);
+		assertThat("result size must be 0",result.size(),is(0));
+
+		date = makeDate("20160501 02:20");
+		param.setStandardDay(date);
+		result = Repeat.EVERY_YEAR.getStrategy().getRepeat(param);
+		assertThat("result size must be 1",result.size(),is(1));
+		assertThat("todo date must be "+stdDate.toString(),result,hasItem(stdDate.plusYears(1).getMillis()));
+
+		date = makeDate("20140501 02:20");
+		param.setStandardDay(date);
+		result = Repeat.EVERY_YEAR.getStrategy().getRepeat(param);
+		assertThat("result size must be 0",result.size(),is(0));
+
+	}
 }
