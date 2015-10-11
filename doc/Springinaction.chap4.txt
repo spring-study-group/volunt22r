@@ -1,0 +1,48 @@
+﻿4. AOP
+
+
+1. 개념
+* 소프트웨어 개발시, 어플리케이션 전 영역에 걸쳐 있는 공통 기능을 하나의 관점으로 정의하여 분리하고, 각 영역에서는 자신의 책임에만 집중할 수 있도록 하는 프로그래밍 기법을 의미
+* 보안, 트랜잭션, 로깅 등이 이에 해당하며, 일반적인 객체 지향 개발 방법론으로도 모듈화가 어려운 점을 AOP를 통해 보완할 수 있다.
+
+
+1. 용어 정리
+* 횡단관심사 : 어플리케이션 전 영역에 걸쳐 있는 공통된 기능을 의미하며, AOP의 주요 관심 영역이다.
+* 어드바이스(advice) : 분리해 낼 작업(기능)과 언제해야할지에 대한 spec
+   * before(실행직전), after(실행이후), after-returning(성공적으로 실행 이후), after-throwing(실패시), around(호출 전,후)
+* 조인포인트(join point) : 코드를 어디에 끼워 넣을 것인가에 대한 spec, Spring AOP는 메소드 조인포인트만 지원
+* 포인트컷(point cut) : advice를 어디서 해야할 것인가에 대한 spec, join point의 집합으로 볼 수 있다. 
+-지정자 - 헷갈리므로 자세한 공부가 필요함...
+args()
+	타입과 메소드 인자의 타입이 일치하는 모든 Joinpoint를 나타냅니다.
+	@args()
+	@args(애노테이션) - 지정된 애노테이션과 런타임시 메소드 인자로 전달된 객체의 애노테이션이 일치하는 Joinpoint를 나타냅니다.
+	target()
+	대상 객체가 주어진 타입을 갖는 join point
+	@target()
+	수행중인 객체의 클래스가 주어진 타입의 애노테이션을 갖는 join point
+	within()
+	특정 타입에 속하는 조인포인트
+	@within()
+	주어진 애너테이션을 갖는 타입 내 조인포인트
+	@annotation
+	조인포인트의 대상 객체가 주어진 애너테이션을 갖는 조인포인트
+	execution
+	메소드 실행 조인포인트
+	this
+	빈 레퍼런스가 주어진 타입의 인스턴스를 갖는 조인포인트
+	bean
+	spring aop only, 주이진 빈
+	
+
+* 애스펙트(aspect) : advice + point cut
+* 인트로덕션(introduction) : 기존 클래스에 코드 변경 없이 새 메소드나 멤버 변수를 추가하는 기능.
+* 위빙(weaving) : 타깃 객체에 애스펙트를 적용해서 새로운 프록시 객체를 생성하는 절차. 애스펙트는 타깃 객체의 조인포인트로 위빙된다.
+위빙 방식은 3가지가 있다.
+a. compile time weaving : AspectJ가 대표로, 컴파일되면서 타겟 클래스에 Crosscutting Concern Binary가 붙는다. 별도의 컴파일이 필요하지만 보다 더 세밀하게 Aspect를 제어할 수 있다. 그러나 Java문법과 비슷하지만 다른, AspectJ 문법을 배워야한다는 단점...
+b. classload time weaving : Aspectwerkz가 대표로 별도의 컴파일러는 필요하지 않지만 클래스가 로드 될때 별도의 agent가 Crosscutting Concern Binary를 타겟 클래스의 Binary에 붙인다. AspectJ처럼 다양하고 세밀하게 제어가 가능하다는 장점이 있다.
+c. runtime weaving : Spring AOP가 대표이며, AOP 컨테이너가 타겟 클래스를 proxy하는 객체를 생성하여 Crosscutting Concern을 제어한다. 타겟 클래스의 Proxy를 생성하기 때문에, 메소드 호출과 관련된 조인포인트만 가능하다.
+
+
+   1. 사용법
+...todo
